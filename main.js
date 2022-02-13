@@ -54,6 +54,12 @@ const sortHeroes = (a, b) => {
 
 // How many items to display on page
 pageSelectBtn.addEventListener('click', () => {
+  const currentNumberOfItemsDisplayed = AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE
+  const newNumberOfItemsDisplayed = pageSelect.value
+  const currentPageNumber = PAGE_NUMBER
+  const newPageNumber = Math.floor((currentPageNumber * currentNumberOfItemsDisplayed) / newNumberOfItemsDisplayed)
+
+  PAGE_NUMBER = newPageNumber
   AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE = parseInt(pageSelect.value)
 
   renderHeroes()
