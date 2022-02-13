@@ -67,10 +67,16 @@ for (let col of columns) {
 }
 
 function displayHeroes() {
-  const sortedHeroes = HEROES.sort(sortHeroes)
+  const sortedHeroes = [...HEROES].sort(sortHeroes)
+
   const page = sortedHeroes.slice(PAGE_NUMBER * PREVIOUS_AMOUNT_ON_PAGE, AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE)
 
   const table = document.getElementById('myTable').tBodies
+
+  // Remove everything but the first child in table
+  while (table[0].childElementCount > 1) {
+    table[0].removeChild(table[0].lastChild)
+  }
 
   for (let index = 0; index < page.length; index++) {
     let row = table[0].insertRow(index + 1)
