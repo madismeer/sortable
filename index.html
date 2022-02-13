@@ -1,44 +1,41 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 
 <body>
+  <div>
+    <p>Show on page</p>
 
-  <form>
-    <label for="framework">Select a JS Framework</label>
     <select id="framework">
-      <option value="1">Angular</option>
-      <option value="2">React</option>
-      <option value="3">Vue.js</option>
-      <option value="4">Ember.js</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
     </select>
-    <button id="btn">Get the Selected Index</button>
-  </form>
+    <button id="btn">Set page number</button>
+  </div>
 
   <table id="myTable">
     <tr>
-      <td>Icon</td>
-      <td>Name</td>
-      <td>Full Name</td>
-      <td>Powerstats</td>
-      <!-- each enty of power stats -->
-      <td>Race</td>
-      <td>Gender</td>
-      <td>Height</td>
-      <td>Weight</td>
-      <td>Place Of Birth</td>
-      <td>Alignement</td>
+      <td class="table-header-item">Icon</td>
+      <td class="table-header-item" data-attr-name="name">Name</td>
+      <td class="table-header-item">Full Name</td>
+      <td class="table-header-item">Powerstats</td>
+      <td class="table-header-item">Race</td>
+      <td class="table-header-item">Gender</td>
+      <td class="table-header-item">Height</td>
+      <td class="table-header-item" data-attr-name="height">Weight</td>
+      <td class="table-header-item">Place Of Birth</td>
+      <td class="table-header-item">Alignement</td>
     </tr>
   </table>
 
-  <!-- <div id="output"></div> -->
-
-  <!-- your content here... -->
-  <script src="api.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>
