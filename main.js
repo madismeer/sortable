@@ -36,8 +36,8 @@ const sortHeroes = (a, b) => {
       }
       return 0
     case 'weight':
-      const weightA = IS_FILTER_DESCENDING ? parseInt(a.appearance.weight[1]) : parseInt(b.appearance.weight[1])
-      const weightB = IS_FILTER_DESCENDING ? parseInt(b.appearance.weight[1]) : parseInt(a.appearance.weight[1])
+      const weightA = IS_FILTER_DESCENDING ? parseInt(b.appearance.weight[1]) : parseInt(a.appearance.weight[1])
+      const weightB = IS_FILTER_DESCENDING ? parseInt(a.appearance.weight[1]) : parseInt(b.appearance.weight[1])
       return weightA - weightB
   }
 }
