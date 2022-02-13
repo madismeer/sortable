@@ -9,15 +9,9 @@
 </head>
 
 <body>
-  <div>
-    <p>Show on page</p>
-
-    <select id="framework">
-      <option value="20">20</option>
-      <option value="50">50</option>
-      <option value="100">100</option>
-    </select>
-    <button id="btn">Set page number</button>
+  <!-- search input -->
+  <div class="search">
+    <input id="search-input" type="text" name="search" placeholder="Search">
   </div>
 
   <table id="myTable">
@@ -34,6 +28,26 @@
       <td class="table-header-item">Alignement</td>
     </tr>
   </table>
+
+  <div class="pagination">
+    <div>
+      <p>Show on page</p>
+
+      <select id="framework">
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+      <button id="btn">Set page number</button>
+    </div>
+
+
+    <div class="pagination-buttons">
+      <button id="btn-prev">Prev</button>
+      <div id="current-page">1</div>
+      <button id="btn-next">Next</button>
+    </div>
+  </div>
 
   <script src="main.js"></script>
 </body>

@@ -1,24 +1,34 @@
 const pageSelect = document.querySelector('#framework')
 const pageSelectBtn = document.querySelector('button#btn')
-const columns = document.getElementsByClassName('table-header-item')
+const columnHeaderElements = document.getElementsByClassName('table-header-item')
+
+const prevPageButton = document.querySelector('#btn-prev')
+const nextPageButton = document.querySelector('#btn-next')
+
+const searchInput = document.querySelector('#search-input')
+
+const currentPageElement = document.querySelector('#current-page')
 
 let HEROES = []
 let AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE = 20
-let PREVIOUS_AMOUNT_ON_PAGE = AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE
 
 const ACCEPTABLE_FILTER_NAMES = ['name', 'weight']
 
 let FILTER_CATEGORY = 'name'
 let IS_FILTER_DESCENDING = true
 
-const PAGE_NUMBER = 0
+let PAGE_NUMBER = 0
 
+// Fetches all heroes and starts render function
 const getHeroes = () => {
   fetch('https://rawcdn.githack.com/akabab/superhero-api/0.2.0/api/all.json')
     .then((response) => response.json())
     .then((h) => {
+      // Save heroes to global variable
       HEROES = h
-      displayHeroes()
+
+      // Render the first page of heroes
+      renderHeroes()
     })
 }
 
@@ -42,16 +52,32 @@ const sortHeroes = (a, b) => {
   }
 }
 
+// How many items to display on page
 pageSelectBtn.addEventListener('click', () => {
-  PREVIOUS_AMOUNT_ON_PAGE = AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE
   AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE = parseInt(pageSelect.value)
 
-  displayHeroes()
+  renderHeroes()
 })
 
-for (let col of columns) {
-  col.addEventListener('click', () => {
-    const newFilterCategory = col.dataset.attrName
+// Navigation for pages
+prevPageButton.addEventListener('click', () => {
+  if (PAGE_NUMBER > 0) {
+    PAGE_NUMBER = PAGE_NUMBER - 1
+    renderHeroes()
+  }
+})
+
+nextPageButton.addEventListener('click', () => {
+  if (PAGE_NUMBER < Math.ceil(HEROES.length / AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE) - 1) {
+    PAGE_NUMBER = PAGE_NUMBER + 1
+    renderHeroes()
+  }
+})
+
+// Header elements for sorting
+for (let headerElement of columnHeaderElements) {
+  headerElement.addEventListener('click', () => {
+    const newFilterCategory = headerElement.dataset.attrName
 
     if (FILTER_CATEGORY === newFilterCategory) {
       IS_FILTER_DESCENDING = !IS_FILTER_DESCENDING
@@ -62,14 +88,36 @@ for (let col of columns) {
       }
     }
 
-    displayHeroes()
+    renderHeroes()
   })
 }
 
-function displayHeroes() {
-  const sortedHeroes = [...HEROES].sort(sortHeroes)
+// Search
+searchInput.addEventListener('keyup', (event) => {
+  const search = searchInput.value.toLowerCase()
 
-  const page = sortedHeroes.slice(PAGE_NUMBER * PREVIOUS_AMOUNT_ON_PAGE, AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE)
+  if (search === '') {
+    renderHeroes()
+  } else {
+    const filteredHeroes = HEROES.filter((hero) => {
+      return hero.name.toLowerCase().includes(search)
+    })
+
+    renderHeroes(filteredHeroes)
+  }
+})
+
+function renderHeroes(passedHeroes = HEROES) {
+  // Destructuring the heroes array so that HEROES would not be changed
+  const sortedHeroes = [...passedHeroes].sort(sortHeroes)
+
+  // Get current items for the page
+  const startIndex = PAGE_NUMBER * AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE
+  const endIndex = startIndex + AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE
+  const page = sortedHeroes.slice(startIndex, endIndex)
+
+  // Update page number in html
+  currentPageElement.innerHTML = PAGE_NUMBER + 1
 
   const table = document.getElementById('myTable').tBodies
 
@@ -110,4 +158,5 @@ function displayHeroes() {
   }
 }
 
+// Initialize everything
 getHeroes()
