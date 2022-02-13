@@ -22,7 +22,7 @@ const getHeroes = () => {
     })
 }
 
-const sortedHeroes = (a, b) => {
+const sortHeroes = (a, b) => {
   switch (FILTER_CATEGORY) {
     case 'name':
       const nameA = IS_FILTER_DESCENDING ? a.name : b.name
@@ -67,7 +67,7 @@ for (let col of columns) {
 }
 
 function displayHeroes() {
-  const sortedHeroes = HEROES.sort(sortedHeroes)
+  const sortedHeroes = HEROES.sort(sortHeroes)
   const page = sortedHeroes.slice(PAGE_NUMBER * PREVIOUS_AMOUNT_ON_PAGE, AMOUNT_OF_ITEMS_DISPLAYED_ON_PAGE)
 
   const table = document.getElementById('myTable').tBodies
